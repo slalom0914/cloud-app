@@ -21,7 +21,8 @@ router.get('/memberUpdate', function(req, res, next) {
   res.render('index', {title: '회원정보수정', pageName: 'pages/users/memberUpdate.ejs'})
 });
 //장바구니
-router.get('/cart', function(req, res, next) {
+//-> http://localhost:3000/users/cart
+router.get('users/cart', function(req, res, next) {
   res.render('index', {title: '장바구니', pageName: 'pages/users/cart.ejs'})
 });
 module.exports = router;
