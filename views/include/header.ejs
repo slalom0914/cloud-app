@@ -46,6 +46,9 @@
           <li class="nav-item" id="login">
             <a class="nav-link active" href="/login">로그인</a>
           </li>
+          <li class="nav-item" id="myEmail" style="display: none;">
+            <a class="nav-link active" href="#">로그인한 이메일주소</a>
+          </li>
           <li class="nav-item" id="logout" style="display: none;">
             <a class="nav-link active" href="#">로그아웃</a>
           </li>
@@ -57,3 +60,20 @@
     </div>
   </div>
 </nav>
+<script type="module">
+  //로그아웃 버튼 클릭시 이벤트 처리하기
+  const logout = document.querySelector("#logout")
+  logout.addEventListener('click', function(){
+    console.log('로그아웃호출 성공');
+    //로컬 스토리지 저장된 uid와 email을 삭제한다.
+    //키는 중복불가함.
+    //저장할 땐 localStorage.setItem("키","값")
+    //삭제할 땐 localStorage.removeItem("키")
+    //읽어올 땐 localStorage.getItem("키")
+    //2개이상을 한번에 삭제할 땐 localStorage.clear()
+    window.localStorage.removeItem("uid")
+    window.localStorage.removeItem("email")
+    //아래에서는 페이지 이동이 일어난다.
+    location.href = "/login"
+  })
+</script>

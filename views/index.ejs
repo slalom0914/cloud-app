@@ -16,7 +16,9 @@
       const email = window.localStorage.getItem('email')
       if(email){
         document.querySelector("#login").style.display = 'none'
-        document.querySelector("#logout").style.display = ''        
+        document.querySelector("#logout").style.display = 'block'    
+        document.querySelector("#myEmail").style.display = 'block'    
+        document.querySelector("#myEmail").querySelector("a").textContent = email    
       }
     </script>
   </body>
