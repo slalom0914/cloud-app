@@ -25,14 +25,24 @@
   </div>
 <script type="module">
   import { getAuth, createUserWithEmailAndPassword} from 'https://www.gstatic.com/firebasejs/12.5.0/firebase-auth.js'
+  // insert here
+  import { app } from '/javascripts/firebase.js'
+  const auth = getAuth(app)
+  console.log(auth);
   const join = document.querySelector("#join")
+  //회원가입 버튼을 눌렀을 때 실행됩니다.
+  //<button>에 type이 없으면 디폴트가 submit이므로 굳이 click이벤트로 처리하지 
+  //않아도 서버로 전송이 됩니다.
+  //<input type='button'>
+  //submit이슈가 있어서 서버로 전송 후에 새로고침이 발동합니다.- 이벤트 전이가 일어나서....
+  //event.preventDefault() 반드시 호출하여 이벤트 전이를 막을 것
   join.addEventListener('submit', function(event){
     event.preventDefault()
     console.log('회원가입 호출 성공');
     //const u_email = document.querySelector("#email") HTMLElements
     const u_email = document.querySelector("#email").value
     const u_pw = document.querySelector("#password").value
-    createUserWithEmailAndPassword(auth,u_email,u_pw)
+    createUserWithEmailAndPassword(auth,u_email,u_pw) //400- Bad Request
     .then((response) => {
       //회원가입 성공하면 함수에 파라미터에 인증객체와 이메일과 비번을 비교해서
       //일치하면 내가 응답으로 메시지를 주입(response)해 줄것을 약속할께-콜백함수
