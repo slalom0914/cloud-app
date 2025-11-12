@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 // 사용할 모듈 지정한다
-var app = require('../app');
+var app = require('../app');//cjs-> commonjs(2009) -> 브라우저에서 동작안됨
 var debug = require('debug')('cloud-app:server');
 var http = require('http');
 

@@ -8,6 +8,14 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Home', pageName: 'pages/home.ejs' });
 });
 // 회원가입 페이지 추가
+// index.js에 설정한 endpoint에는 users사용하지 않습니다.
+// 위 설정은 app.js에서 확인할 수 있다. -> routing설정이 여기
+/*
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+*/
 // http://localhost:3000/signup
 // http://127.0.0.1:3000/signup
 // http://192.168.0.41:3000/signup

@@ -21,8 +21,8 @@
       </div>
       <div class="text-end mt-3">
         <span id="join">
-          <a href="/signup">회원가입</a>
-          <a href="/users/join">회원가입2</a>
+          <!-- http://localhost:3000/users/join -->
+          <a href="/users/join">회원가입</a>
         </span>
         <span id="profile" style="display: none">
           <a href="/profile">정보수정</a>
@@ -53,16 +53,30 @@
     //insert here
     const password = document.querySelector('#password').value//12345678
     console.log(`사용자가 입력한 이메일 ${email}, 비번: ${password}`);//kiwi@hot.com
+    //firebase에서 제공되는 메서드이다.
+    //파라미터가 세 개 입니다.
+    //파이어베이스 서버를 경유한다.- 지연이 발생할 수도 있다. - waiting - pending
+    //그런데 자바스크립트는 동기적으로 처리합니다.-디폴트
     signInWithEmailAndPassword(auth, email, password)
     //signInWithEmailAndPassword메서드 요청했을 때 firebase에서 파라미터 자리인
     //userCredential에 인증된 정보를 주입해줌
-    .then((data) => {
+    .then((data) => {//요청에 대한 응답이 오면...파리미터 data변수에 사용자 정보담김
       //요청이 정상이면 서버로 부터 data변수에 정보를 돌려 받는다. -콜백함수
       // Signed in 
       const user = data.user;
-      console.log(user.uid);//{}, [{}]
-      console.log(user.email);
-      // ...
+      console.log(user.uid);//구글에서 제공되는 uid출력하기
+      console.log(user.email);//내가 미리 등록해둔 이메일
+      //로그인이 성공했나요?
+      if(user.uid){//참이면 구글에서 응답으로 보내준 uid값이 있다.
+        window.localStorage.setItem("uid", user.uid)
+        window.localStorage.setItem("email", user.email)
+        //로그인 성공시 homepage를 응답으로 보기전에 UI변경하기
+        document.querySelector("#login").style.display = 'none'
+        document.querySelector("#logout").style.display = ''
+        location.href="/"
+      }else{
+        console.log("로그인 실패");
+      }
     })
     .catch((error) => {
       const errorCode = error.code;

@@ -12,5 +12,12 @@
       <%-include(pageName) %>
       <%-include("include/footer.ejs") %>
     </div>
+    <script type="module">
+      const email = window.localStorage.getItem('email')
+      if(email){
+        document.querySelector("#login").style.display = 'none'
+        document.querySelector("#logout").style.display = ''        
+      }
+    </script>
   </body>
 </html>
