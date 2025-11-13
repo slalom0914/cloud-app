@@ -13,7 +13,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const calendarRouter = require('./routes/calendar')
 //insert here
-//const youtubeRouter = require('./routes/youtube')
+const youtubeRouter = require('./routes/youtube')
 
 var app = express();
 
@@ -31,7 +31,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/calendar',calendarRouter)
 //insert here
-//app.use('/youtube', youtubeRouter)
+app.use('/youtube', youtubeRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
