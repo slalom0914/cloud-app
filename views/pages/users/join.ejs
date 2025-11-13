@@ -42,13 +42,14 @@
     //const u_email = document.querySelector("#email") HTMLElements
     const u_email = document.querySelector("#email").value
     const u_pw = document.querySelector("#password").value
+    console.log(`u_email:${u_email}, u_pw:${u_pw}`);
     createUserWithEmailAndPassword(auth,u_email,u_pw) //400- Bad Request
     .then((response) => {
       //회원가입 성공하면 함수에 파라미터에 인증객체와 이메일과 비번을 비교해서
       //일치하면 내가 응답으로 메시지를 주입(response)해 줄것을 약속할께-콜백함수
       console.log(response);
       //회원가입에 성공하면 어디로 가면 될까요? -로그인화면으로 가야지
-      location.href = "/login"
+      //location.href = "/login"
     })//end of createUserWithEmailAndPassword
     .catch((error) => {//에러가 발생하면 그 때 실행됨 
       const errorCode = error.code 

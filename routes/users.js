@@ -1,5 +1,8 @@
-var express = require('express');
-var router = express.Router();
+// 의존성 주입으로 설치한 express프레임워크 객체를 참조한다.
+// npm i express
+// npm i -D express
+const express = require('express');//모듈(CJS, ESM)
+const router = express.Router();
 
 /* GET users listing. */
 // router.get('/', function(req, res, next) {
@@ -29,7 +32,11 @@ router.get('/cart', function(req, res, next) {
 });
 //회원가입
 //-> http://localhost:3000/users/join
-router.get('/users/join', function(req, res, next) {
+router.get('/join', function(req, res, next) {
   res.render('index', {title: '회원가입', pageName: 'pages/users/join.ejs'})
+});
+router.post('/join2', function(req, res, next) {
+  //응답을 render함수 사용하면 mime type -> text/html이고
+  res.send('<h1>post</h1>요청 테스트');// mime type-> text/plain
 });
 module.exports = router;

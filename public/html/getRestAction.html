@@ -1,0 +1,11 @@
+<script>
+  // Rest(철학)와 Restful(Rest지키는 API-C(POST)R(GET)U(PUT)D(DELETE))
+  // API차이점에 대해 나는 말할 수 있다.
+  //이 파일의 확장자는 html이지만 이 실습에서 역할은 
+  //Backend를 담당하게 하자
+  //console.log('getRestAction.html페이지 호출');
+  //const paramsString = "email=kiwi@hot.com&password=12345678";
+  console.log(window.location.search);
+  let searchParams = new URLSearchParams(window.location.search);
+  console.log(`email : ${searchParams.get("email")}, password : ${searchParams.get("password")}`);
+</script>

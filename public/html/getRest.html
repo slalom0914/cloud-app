@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    function login(){
+      //document -> getRest.html문서 전체
+      // http://192.168.0.55:5500/public/html/getRest.html
+      // 로그인버튼 클릭 -> login()호출 -> 전송
+      // http://192.168.0.55:5500/public/html/getRestAction.html?email=kiwi@hot.com&password=12345678
+      document.querySelector("#f_login").submit()
+    }
+  </script>
+</head>
+<body>
+  <form id="f_login" method="get" action="getRestAction.html">
+    email : <input type="text" id="email" name="email"><br>
+    password : <input type="password" id="password" name="password"><br>
+    <input type="button" value="로그인" onclick="login()">
+  </form>
+</body>
+</html>
