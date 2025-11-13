@@ -14,11 +14,17 @@
     </div>
     <script type="module">
       const email = window.localStorage.getItem('email')
-      if(email){
+      if(email){//참이면 로그인을 한 후이다.
         document.querySelector("#login").style.display = 'none'
         document.querySelector("#logout").style.display = 'block'    
         document.querySelector("#myEmail").style.display = 'block'    
+        document.querySelector("#cart").style.display = 'block'
+        document.querySelector("#mypage").style.display = 'block'
         document.querySelector("#myEmail").querySelector("a").textContent = email    
+      }else{
+        //로그인을 하지 않았거나 로그아웃을 했을 때
+        document.querySelector("#cart").style.display = 'none'
+        document.querySelector("#mypage").style.display = 'none'
       }
     </script>
   </body>

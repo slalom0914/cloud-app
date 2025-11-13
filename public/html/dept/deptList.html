@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>deptList.html</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+</head>
+<body>
+<script id="hb-dept" type="text/x-handlebars-template">
+  <table border="1">
+    <!-- 헤더 영역 시작 
+    이 구간은 for문에 포함시키지 않습니다.
+    -->
+    <thead>
+      <tr>
+        <th>부서번호</th>
+        <th>부서명</th>
+        <th>지역</th>
+      </tr>
+    </thead>
+    <!-- 헤더 영역  끝 -->
+    <tbody>
+    <!-- 결정할 수 없다. 유연해야 한다. 자주 바뀐다. 오라클 서버,JSON 
+    여기에 for문이 필요합니다.
+    -->
+      {{#each depts}}
+      <tr>
+        <td>{{deptno}}</td>
+        <td>{{dname}}</td>
+        <td>{{loc}}</td>
+      </tr>
+      {{/each}}
+    <!-- 여기서 for문이 닫혀야 합니다. -->
+    <!-- 결정할 수 없다. 유연해야 한다. 자주 바뀐다. 오라클 서버,JSON -->
+    </tbody>
+  </table>
+</script>
+<div class="dept">이안에핸들바스템플릿이 삽입됩니다.</div>
+<script type="text/javascript">
+  //데이터셋 정의
+  const data = {//객체부분
+    depts: [//배열부분
+      {deptno:10, dname:"개발1팀", loc:"서울"},//객체
+      {deptno:20, dname:"운영팀", loc:"제주"},
+      {deptno:30, dname:"품질관리팀", loc:"세종"}
+    ]
+  }//end of data  
+  //핸들바스템플릿 가져오기
+  const source = document.querySelector("#hb-dept").innerHTML
+  //템플릿 컴파일 - 매핑(데이터와 테이블태그 머지)
+  const template = Handlebars.compile(source)
+  //데이터와 html렌더링
+  const html = template(data)
+  //결과 출력
+  document.querySelector(".dept").innerHTML = html
+</script>  
+</body>
+</html>
