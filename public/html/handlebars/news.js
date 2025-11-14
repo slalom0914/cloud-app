@@ -1,5 +1,5 @@
 const container = document.getElementById('root');
-const ajax = new XMLHttpRequest();
+const ajax = new XMLHttpRequest();//생성자 함수 호출하기 - 메모리 로딩 - API함수호출가능
 const content = document.createElement('div');
 const NEWS_URL = 'https://api.hnpwa.com/v0/news/1.json';
 const CONTENT_URL = 'https://api.hnpwa.com/v0/item/@id.json';
