@@ -2,7 +2,7 @@
   <div class="col">
     <h1 class="text-center mb-5">회원정보수정</h1>
     <div class="card p-5">
-      <form name="frm" method="post">
+      <form id="f_update" name="frm" method="post">
         <div class="input-group my-2">
           <div class="input-group-text px-5">성명</div>
           <input class="form-control" id="name" name="name" value="나잘난" />
@@ -55,6 +55,37 @@
     addressInput.value = user.address
     phoneInput.value = user.phone
   }
+
+  // 폼 전송 이벤트 처리
+  const f_update = document.querySelector("#f_update")
+  f_update.addEventListener('submit', async function(e){
+    e.preventDefault()
+    if(window.confirm("변경 사항을 적용하시겠습니까?")){
+      const name = nameInput.value;//사용자가 입력한 이름
+      const address = addressInput.value;//사용자가 입력한 주소
+      const phone = phoneInput.value;//사용자가 입력한 전화번호
+      //혹시 이미지도 선택한거야?
+      if(fileInput.files[0]){//man2.png, man4.png, woman1.png
+        console.log('이미지를 선택했다.');
+        const file = fileInput.files[0] 
+        const result = await imageUploader.upload(file)
+        console.log(result);// 사진의 URL 주소, 사진의 이름
+        //이미지 이름 - result.original_filename 
+        //클라우드 이미지url - result.secure_url
+        fileName.src = result.secure_url 
+        await setDoc(doc(db, `users/${uid}`), {
+          name: name,
+          address: address,
+          phone: phone,
+          photo: result.secure_url
+        })
+      }//end of inner if - 사용자가 파일을 선택했다면 - 실행기회를 갖는다.
+      alert("사용자 정보가 변경 되었습니다.")
+    }/// end of outer if - 수정할거니?
+  })
+
+
+
   //이미지 파일 선택/업로드
   fileInput.addEventListener('change',function(e){
     const file = e.target.files[0]  
