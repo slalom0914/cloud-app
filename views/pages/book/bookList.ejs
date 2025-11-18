@@ -46,6 +46,15 @@
 </script>
 
 <script type="module">
+  // Handlebars가 documents(Array(10))를 빙글빙글 돌면서
+  // 카드레이아웃하나 + 모달 하나가 같이 찍히는 구조입니다.
+  // 즉 카드 하나당 모달 하나를 가지도록 설계하였다.
+  // 카드 이미지 클릭 -> index/book data이용해서 모달을 열어준다
+  // 모달 내용은 bookModal.ejs에 있다.
+  // 이미지에는 index="{{@index}}"를 넣어서 몇번째 책인지를 JS에서
+  // 알 수 있도록 하였다.
+  // <%-include("bookModal.ejs")%> 를 통해서 EJS에서 모달 창 HTML을 
+  // 카드 마다 삽입해 두고 나중에 JS로 모달을 열어서 상세 정보를 볼 수 있게 한다.
   // 장바구니 이벤트와 이미지 클릭시 상세 보기 모달을 띄워서 상세내용을 확인하고
   // 장바구니 담기 버튼을 누른다.
   // 두 가지를 같이 처리할 수 있도록 이벤트 핸들러 함수를 설계해 본다.
@@ -63,9 +72,20 @@
     //이미지를 클릭했을 때
     //이미지를 클릭했을 때를 비교해야 하는데 id도 없고 name도 없다. 어떡하지
     //해결방법은 tagName은 있다.
-    if(target.tagName == 'img'){
+    //주의 : tagName으로 element를 비교할 때는 반드시 대문자로 비교할것
+    if(target.tagName == 'IMG'){
       console.log('이미지를 클릭했을 때');
-    }
+      const index = target.getAttribute('index')//0,1,2,,,,,9
+      console.log(`index: ${index}`);
+      const modalEl = document.querySelector(`modal${index}`)
+      if(modalEl && window.bootstrap){
+        //index.ejs에 bootstrap객체가 import되어 있으므로 사용이 가능함
+        //bootstrap이 제공하는 Modal객체를 생성하고 그 객체가 제공하는
+        //show()호출하여 화면에 모달이 출력되게 한다.
+        const modal = new bootstrap.Modal(modalEl)
+        modal.show()
+      }//end of inner if
+    }/// end of outter if
 
 
   })
@@ -106,4 +126,5 @@
       .catch((error) => console.error(error));
 
   }//end of getBookList
+  getBookList(query, 1)
 </script>
