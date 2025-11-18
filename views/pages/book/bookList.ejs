@@ -1,8 +1,8 @@
 <div class="row mt-5 justify-content-end">
   <div class="col-6 col-md-4">
-    <form name="frm">
+    <form id="f_title">
       <div class="input-group">
-        <input type="text" name="query" class="form-control" value="자바" />
+        <input type="text" id="query" name="query" class="form-control" value="자바" />
         <button class="btn btn-success" type="submit">검색</button>
       </div>
     </form>
@@ -27,6 +27,7 @@
           <span class="cart ms-3" book="{{book @this}}" style="cursor:pointer; color:green;">CART</span>
         </div>
       </div>
+      <%-include("bookModal.ejs") %>
     </div>
   {{/each}}
 </script>
@@ -45,12 +46,47 @@
 </script>
 
 <script type="module">
+  // 장바구니 이벤트와 이미지 클릭시 상세 보기 모달을 띄워서 상세내용을 확인하고
+  // 장바구니 담기 버튼을 누른다.
+  // 두 가지를 같이 처리할 수 있도록 이벤트 핸들러 함수를 설계해 본다.
+  const listEl = document.querySelector("#list_book")
+  //목록 영역 클릭 이벤트(장바구니 & 이미지 모달처리)
+  listEl.addEventListener('click', function(e){
+    const target = e.target
+    //const target = e.currentTarget
+    //CART 클릭했을 때
+    if(target.classList.contains('cart')){
+      console.log('cart클릭 성공');
+    }
+
+
+    //이미지를 클릭했을 때
+    //이미지를 클릭했을 때를 비교해야 하는데 id도 없고 name도 없다. 어떡하지
+    //해결방법은 tagName은 있다.
+    if(target.tagName == 'img'){
+      console.log('이미지를 클릭했을 때');
+    }
+
+
+  })
+
+  // 검색전에도 디폴트 페이지가 출력되도록  query는 null나 undefinded가 되지 않도록 할것
+  let query = document.querySelector("#query").value //자바가 담김
+  // 사용자가 입력한 책 제목으로 검색하기
+  // 검색 폼 제출하기(submit이슈)
+  document.querySelector("#f_title").addEventListener('submit',function(event){
+    event.preventDefault()
+    query = document.querySelector("#query").value 
+    const page = 1
+    getBookList(query, page)
+  })
   // 도서 리스트 조회
-  function getBookList(){
+  function getBookList(query, page=0){
+    console.log(`사용자가 입력한 책제목 : ${query}`);
     const url = new URL('https://dapi.kakao.com/v3/search/book')
     url.searchParams.set('target','title')
-    url.searchParams.set('query','자바')
-    url.searchParams.set('page',1)
+    url.searchParams.set('query',query)
+    url.searchParams.set('page',page)
 
     fetch(url, {
       headers: { 'Authorization': 'KakaoAK 9d9841337521bac930557a25b3fd1776'}
@@ -64,11 +100,10 @@
         const template = Handlebars.compile(source)
         //데이터와 html렌더링
         const html = template(data)
-          //결과 출력
+        //결과 출력
         document.querySelector("#list_book").innerHTML = html
       })
       .catch((error) => console.error(error));
 
   }//end of getBookList
-  getBookList()
 </script>
