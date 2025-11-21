@@ -38,6 +38,18 @@
 </script>
 <div class="dept">이안에핸들바스템플릿이 삽입됩니다.</div>
 <script type="text/javascript">
+
+  const requestOptions = {
+    method: "GET",
+    redirect: "follow"
+  };
+
+  fetch("http://localhost:3000/dept", requestOptions)
+    .then((response) => response.json())
+    .then((result) => console.log(result))
+    .catch((error) => console.error(error));
+
+  // 자바스크립트 코드에서 백엔드서버에 요청을 해야 한다.
   //데이터셋 정의
   const data = {//객체부분
     depts: [//배열부분
